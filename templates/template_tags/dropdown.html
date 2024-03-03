@@ -1,0 +1,11 @@
+{% load custom_tags %}
+
+<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    {% for item in item %}
+        <li class="dropdown-item">
+            <a href="{{ item.get_url }}" class="menu__list-item-link {% if item.get_url == request_path %}active{% endif %}">
+                {{ item.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

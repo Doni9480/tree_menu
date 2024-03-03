@@ -1,0 +1,60 @@
+{% load custom_tags %}
+
+<nav class="menu-navbar">
+    <div class="container">
+        <div class="menu">
+            <ul class="menu__list">
+                {% for item in menu %}
+                {% with children=item.children.all %}
+                {% if children %}
+                <li class="menu__list-item">
+                    <a href="{{ item.get_url }}" class="menu__list-item-link {% if context.request.path == item.get_url %}active{% endif %}">
+                        {{ item.name }}
+                    </a>
+                    <span class="menu__list-item-drop dropdown-toggle" 
+                    id="navbarDropdownMenuLink"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" 
+                    aria-expanded="false"></span>
+                    {% draw_dropdown children %}
+                </li>
+                {% else %}
+                <li class="menu__list-item">
+                    <a href="{{ item.get_url }}" class="menu__list-item-link {% if context.request.path == item.get_url %}active{% endif %}">
+                        {{ item.name }}
+                    </a>
+                </li>
+                {% endif %}
+                {% endwith %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+{% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <a class="navbar-brand" href="{{ menu.get_full_path }}">{{ menu.title }}
+            {{ menu.get_url }}</a>
+        <ul class="nav navbar-nav">
+        {% with items=menu.menu_items.all %}
+            {% for item in items %}
+                {% if item.children.all %}
+                    <li class="nav-item dropdown">
+                        <a href="{{ item.get_url }}" class="nav-link dropdown-toggle"
+                           id="navbarDropdownMenuLink"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                           {{ item.name }}
+                        </a>
+                        {% draw_dropdown item %}
+                    </li>
+                {% else %}
+                    <li><a href="{{ item.get_url }}">?{{ item.name }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+        </ul>
+</div>
+</nav> {% endcomment %}

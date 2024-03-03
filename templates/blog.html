@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block content %}
+<section>
+    {% draw_menu 'blog' %}
+    <div class="page">
+        <div class="container">
+            <div class="page__content">
+                <h3>Вы находитесь на странице: {{ request.path }}</h3>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
